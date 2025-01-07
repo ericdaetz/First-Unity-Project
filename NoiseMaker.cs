@@ -5,12 +5,16 @@ using UnityEngine;
 public class NoiseMaker : MonoBehaviour
 {
 
-    AudioSource my_audiosource;
+    AudioSource good_sound;
+    AudioSource bad_sound;
 
     // Start is called before the first frame update
     void Start()
     {
-        my_audiosource = GetComponent<AudioSource>();
+        AudioSource[] my_audiosources = GetComponents<AudioSource>();
+        bad_sound = my_audiosources[0];
+        good_sound = my_audiosources[1];
+
     }
 
     // Update is called once per frame
@@ -18,7 +22,17 @@ public class NoiseMaker : MonoBehaviour
     {
 
     }
-    public void PlayNoise(){
-        my_audiosource.Play();
+    public void PlayNoise(int sound_code){
+        switch(sound_code){
+            case 0:
+                bad_sound.Play();
+                break;
+            case 1:
+                good_sound.Play();
+                break;
+            default:
+                bad_sound.Play();
+                break;
+        }
     }
 }

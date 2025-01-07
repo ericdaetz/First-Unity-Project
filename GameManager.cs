@@ -43,8 +43,12 @@ public class GameManager : MonoBehaviour
     //Timer and Lock
     private float hold_time = 2.0f;
     private float wait_time = 0.0f;
-
     private bool locked = false;
+
+    //Sound Handling
+    public GameObject noise_maker;
+    public NoiseMaker noise_maker_script; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +65,9 @@ public class GameManager : MonoBehaviour
 
         playing_card = GameObject.Find("Playing Card");
         sprite_renderer = playing_card.GetComponent<SpriteRenderer>();
+
+        noise_maker = GameObject.Find("Success Noise Maker");
+        noise_maker_script = noise_maker.GetComponent<NoiseMaker>();
 
         card_array = new GameObject[num_cards];
         CreateCards();
@@ -157,9 +164,11 @@ public class GameManager : MonoBehaviour
     void CheckMatch(){
         card_script1 = card1.GetComponent<PlayingCard>();
         card_script2 = card2.GetComponent<PlayingCard>();
+
         if(card_script1.card_front.name == card_script2.card_front.name){
             //print("Match");
             matches++;
+            noise_maker_script.PlayNoise(1);
             if(matches >= (num_cards)/2){
                 button.interactable = true;
             }
@@ -169,6 +178,7 @@ public class GameManager : MonoBehaviour
             card_script2.FlipDown();
             EngageLocks();
             locked = true;
+            noise_maker_script.PlayNoise(0);
         }
         card1 = null;
         card2 = null;
