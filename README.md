@@ -1,1 +1,1 @@
-A short and sweet memory game with simple features as a proof-of-concept of using Unity
+The scripts used for a simple card matching game in Unity, just to gain a little familiarity with the engine.
